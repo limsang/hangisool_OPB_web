@@ -1,0 +1,55 @@
+@font-face {
+    font-family: "SpoqaHanSansKr";
+    font-weight: 100;
+    src: url("spoqa-han-sans-kr-thin.woff2") format("woff2"),
+         url("spoqa-han-sans-kr-thin.ttf")   format("truetype");
+}
+
+@font-face {
+    font-family: "SpoqaHanSansKr";
+    font-weight: 300;
+    src: url("spoqa-han-sans-kr-light.woff2") format("woff2"),
+         url("spoqa-han-sans-kr-light.ttf")   format("truetype");
+}
+
+@font-face {
+    font-family: "SpoqaHanSansKr";
+    font-weight: 400;
+    src: url("spoqa-han-sans-kr-regular.woff2") format("woff2"),
+         url("spoqa-han-sans-kr-regular.ttf")   format("truetype");
+}
+
+@font-face {
+    font-family: "SpoqaHanSansKr";
+    font-weight: 600;
+    src: url("spoqa-han-sans-kr-bold.woff2") format("woff2"),
+         url("spoqa-han-sans-kr-bold.ttf")   format("truetype");
+}
+
+@font-face {
+    font-family: "SpoqaHanSansJp";
+    font-weight: 100;
+    src: url("spoqa-han-sans-jp-thin.woff2") format("woff2"),
+         url("spoqa-han-sans-jp-thin.ttf")   format("truetype");
+}
+
+@font-face {
+    font-family: "SpoqaHanSansJp";
+    font-weight: 300;
+    src: url("spoqa-han-sans-jp-light.woff2") format("woff2"),
+         url("spoqa-han-sans-jp-light.ttf")   format("truetype");
+}
+
+@font-face {
+    font-family: "SpoqaHanSansJp";
+    font-weight: 400;
+    src: url("spoqa-han-sans-jp-regular.woff2") format("woff2"),
+         url("spoqa-han-sans-jp-regular.ttf")   format("truetype");
+}
+
+@font-face {
+    font-family: "SpoqaHanSansJp";
+    font-weight: 600;
+    src: url("spoqa-han-sans-jp-bold.woff2") format("woff2"),
+         url("spoqa-han-sans-jp-bold.ttf")   format("truetype");
+}

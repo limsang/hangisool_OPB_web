@@ -1,0 +1,2 @@
+cd <'sass' folder>
+node-sass --watch -r --output ../stylesheets --output-style compressed --indent-type space --indent-width 0 .

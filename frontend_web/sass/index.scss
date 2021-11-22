@@ -1,0 +1,823 @@
+@import "common";
+
+$dashboard-device-item-size: 250px;
+
+//          Mixins         //
+@mixin dashboard-device-item($bgcolor, $fgcolor) {
+    background-color: $bgcolor;
+    color:            $fgcolor;
+    box-shadow:       0 0 1rem rgba($bgcolor, 0.75);
+
+    &:hover {
+        box-shadow: 0 0 1.5rem rgba($bgcolor, 0.925);
+    }
+}
+// ======================= //
+
+/*    Index.php  styles    */
+h1 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size:   1.5rem;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+header#header_main {
+    position:         fixed;
+    top:              0;
+    left:             0;
+    bottom:           0;
+    width:            $header-width;
+    height:           100%;
+    background-color: $common-color-black;
+    color:            $common-color-white;
+    box-shadow:       0 0 1rem rgba($common-color-black, 0.5);
+
+    #header_place_container {
+        display:          flex;
+        justify-content:  center;
+        align-items:      center;
+        width:            $header-width;
+        height:           $header-width;
+        background-color: var(--header-color-profile-background);
+        text-shadow:      0 0 0.5rem rgba($common-color-black, 0.25);
+
+        #header_place_contents {
+            padding: 1rem;
+            text-align: center;
+
+            #header_place_image_container {
+                width:               $header-size-profile-contianer;
+                height:              $header-size-profile-contianer;
+                margin:              auto auto 1.5rem auto;
+                border:              $common-color-white solid 0.5rem;
+                border-radius:       100%;
+                box-shadow:          0 0 1rem rgba($common-color-black, 0.25);
+                background-color:    $common-color-white;
+                background-size:     cover;
+                background-position: center;
+                background-repeat:   no-repeat;
+                image-rendering:     optimizeQuality;
+
+                #header_place_image_logout_container {
+                    display:                    flex;
+                    justify-content:            center;
+                    align-items:                center;
+                    width:                      100%;
+                    height:                     50%;
+                    font-weight:                500;
+                    font-size:                  1rem;
+                    text-decoration:            none;
+                    color:                      $common-color-white;
+                    background-color:           rgba($common-color-black, 0.33);
+                    border-bottom-right-radius: $very-big-unit;
+                    border-bottom-left-radius:  $very-big-unit;
+                    transform:                  translateY(100%);
+                    transition:                 background-color 0.33s;
+
+                    &:hover {
+                        background-color: rgba($common-color-black, 0.5);
+                    }
+                }
+            }
+
+            #header_logged_operator {
+                font-size: 2rem;
+                font-weight: 700;
+            }
+
+            #header_place_name {
+                font-size: 1.33rem;
+                font-weight: 400;
+            }
+        }
+    }
+
+    #header_menus {
+        padding:    1rem 0;
+        margin-top: 0.5rem;
+        font-size:  1.75rem;
+        list-style: none;
+
+        > li {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.25s, padding-left 0.5s;
+
+            &:hover, &.active {
+                padding-left: 2.5rem;
+                background-color: lighten($common-color-black, 15%);
+            }
+
+            > i {
+                margin-right: 0.5rem;
+            }
+        }
+    }
+
+    #header_hangisool_ecws {
+        position:   absolute;
+        bottom:     1rem;
+        width:      100%;
+        text-align: center;
+        font-size:  1rem;
+        color:      $common-color-black-disabled;
+    }
+}
+
+section {
+    position:       absolute;
+    overflow:       hidden;
+    left:           $header-width;
+    top:            0;
+    right:          0;
+    padding:        1rem 1.5rem;
+    width:          calc(100% - #{$header-width});
+    height:         100%;
+    color:          $common-color-black;
+    opacity:        0;
+    pointer-events: none;
+    transition:     opacity 0.5s;
+
+    &.current {
+        overflow:       auto;
+        overflow:       hidden auto;
+        height:         auto;
+        opacity:        1;
+        pointer-events: initial;
+    }
+}
+
+section#section_dashboard {
+    hr {
+        width:      90%;
+        margin:     2rem auto 2rem auto;
+        border:     solid #DDD 1px;
+        background: #DDD;
+    }
+
+    .device_item {
+        cursor:         pointer;
+        flex-direction: column;
+        align-items:    start;
+        width:          $dashboard-device-item-size;
+        min-height:     $dashboard-device-item-size;
+        line-height:    1.4;
+        font-size:      1.275rem;
+        color:          $common-color-black;
+        transform:      scale(1);
+        opacity:        1;
+
+        // ↓ additional classes of .device_item
+        &.bad {
+            @include dashboard-device-item($common-color-bad, $common-color-white);
+            display: inherit !important;
+        }
+
+        &.bad_device {
+            @include dashboard-device-item($common-color-bad-alternative, $common-color-white);
+            display: inherit !important;
+        }
+
+        &.calling {
+            @include dashboard-device-item($common-color-good, $common-color-white);
+        }
+
+        &.scale_out {
+            transform: scale(0.8);
+            opacity:   0;
+        }
+
+        &.scale_in {
+            transform: scale(1) !important;
+            opacity:   1        !important;
+        }
+
+        // ↓ contents of .device_item
+        i {
+            margin-right: 0.33rem;
+        }
+
+        .name {
+            font-size:   1.725rem;
+            font-weight: 500;
+        }
+
+        .description {
+            word-break:    break-all;
+            font-size:     1.15rem;
+            margin-left:   1rem;
+            margin-bottom: 1rem;
+        }
+
+        .time_happened {
+            margin-left: 1rem;
+        }
+    }
+
+    #dashboard_allstatus_container {
+        i.status_icon {
+            font-size:    8rem;
+            margin-right: 1rem;
+            color:        $common-color-normal;
+        }
+
+        &.good i.status_icon {
+            color: $common-color-good;
+        }
+
+        &.bad i.status_icon {
+            color: $common-color-bad;
+        }
+
+        .description_container {
+            line-height: 1.5;
+        }
+
+        .description_main {
+            font-size:   2.5rem;
+            font-weight: 400;
+        }
+
+        .description_sub {
+            font-size: 1.5rem;
+        }
+
+        .description_status {
+            margin-top: 0.5rem;
+            font-size: 1.25rem;
+        }
+    }
+
+    #dashboard_devices_container,
+    #dashboard_emergency_devices_container {
+        display:         flex;
+        flex-direction:  row;
+        flex-wrap:       wrap;
+        justify-content: center;
+        align-items:     start;
+
+        hr {
+            width:      1px;
+            height:     $dashboard-device-item-size / 2;
+            align-self: center;
+            margin:     1rem;
+        }
+    }
+
+    #dashboard_devices_container {
+        #dashboard_devices_location_container {
+            display:         flex;
+            flex-direction:  row;
+            flex-wrap:       wrap;
+            align-items:     center;
+            justify-content: center;
+            width:           100%;
+            font-size:       1.33rem;
+            margin-bottom:   1.5rem;
+
+            & > .location_item {
+                cursor:  pointer;
+                margin:  0.33rem;
+                padding: 0.925rem;
+
+                &.active {
+                    color:            $common-color-white;
+                    background-color: $common-color-black;
+                }
+
+                i {
+                    margin-right: 0.33rem;
+                }
+            }
+        }
+    }
+
+    #dashboard_emergency_devices_container {
+        margin-top: 1rem;
+
+        .device_item {
+            display: initial !important;
+        }
+    }
+
+    #dashboard_tools_container {
+        display:        flex;
+        flex-direction: column;
+        font-size:      1.5rem;
+        width:          450px;
+        float:          right;
+        transform:      translate3d(0, 0, 0.00001px);
+        transition:     transform 0.5s cubic-bezier(0, 0, 0.25, 1);
+
+        .floating_item {
+            margin: 1rem 1rem 0 1rem;
+        }
+
+        #dashboard_search_container {
+            i {
+                margin-right: 0.75rem;
+            }
+
+            input {
+                width: 90%;
+
+                &:invalid, &:-moz-ui-invalid {
+                    box-shadow: none !important;
+                }
+            }
+        }
+
+        #dashboard_order_container {
+            justify-content: space-around;
+
+            .order_name_asc, .order_name_desc {
+                cursor: pointer;
+                border-bottom: transparent solid 2px;
+                transition: border-bottom-color 0.33s;
+
+                &:hover, &.active {
+                    border-bottom-color: $common-color-black;
+                }
+            }
+        }
+
+        #dashboard_mobile_tools_open_container {
+            display:                    none;
+            position:                   absolute;
+            bottom:                     0;
+            right:                      1rem;
+            padding:                    0.1rem 0.5rem 0.5rem 0.5rem;
+            color:                      white;
+            background-color:           rgba($common-color-black, 0.33);
+            font-size:                  2.5rem;
+            cursor:                     pointer;
+            border-bottom-left-radius:  $very-big-unit;
+            border-bottom-right-radius: $very-big-unit;
+            transform:                  translateY(100%);
+            z-index:                    10;
+            transition:                 background-color 0.5s;
+    
+            &:hover {
+                background-color: rgba($common-color-black, 0.5);
+            }
+        }
+    }
+}
+
+section#section_manage {
+    > div {
+        margin: 0 0 3rem 0;
+    }
+
+    %manage_item {
+        cursor: pointer;
+
+        &.active {
+            background-color: $common-color-black;
+            color:            $common-color-white;
+        }
+    }
+
+    #subaccount_manage_container {
+        #subaccount_create_container {
+            @include   width-fit-content;
+            
+            display:   block;
+            max-width: 100%;
+            float:     left;
+
+            > div {
+                font-size:     1.75rem;
+                margin-bottom: 1rem;
+            }
+
+            form {
+                font-size: 1.25rem;
+
+                label {
+                    display:      inline-block;
+                    width:        calc(175px - 0.5rem);
+                    margin-right: 0.5rem;
+                    text-align:   right;
+                }
+
+                input[type=text], input[type=password] {
+                    width:         300px;
+                    margin-top:    0.25rem;
+                    margin-bottom: 0.75rem;
+                }
+
+                input[type=button] {
+                    min-width: 100px;
+                }
+
+                #subaccount_create_add_button {
+                    float: right;
+                }
+
+                .notice {
+                    font-size:     0.9rem;
+                    text-align:    right;
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+
+        #subaccount_manage_inner_container {
+            display:    block;
+            margin-top: 2.5rem;
+
+            .account_item {
+                @extend %manage_item;
+                position:  relative;
+                font-size: 1.4rem;
+
+                .index_container {
+                    width:        90px;
+                    max-width:    90px;
+                    overflow:     hidden;
+                    text-align:   center;
+                    margin-right: 1rem;
+
+                    div {
+                        font-size: 1.1rem;
+                    }
+
+                    .account_index {
+                        font-size:   3rem;
+                        font-weight: 400;
+                    }
+                }
+
+                .id_container {
+                    width:        250px;
+                    overflow:     hidden;
+                    line-height:  1.3;
+                    margin-right: 1rem;
+
+                    .account_name {
+                        font-size: 2rem;
+                        font-weight: 400;
+                    }
+
+                    .account_id {
+                        font-size: 1.35rem;
+                    }
+                }
+
+                .info_container {
+                    line-height: 1.3;
+
+                    i {
+                        margin-right: 0.5rem;
+                    }
+                }
+
+                .account_control_container {
+                    position: absolute;
+                    right:    1.5rem;
+
+                    i {
+                        cursor:        pointer;
+                        margin:        0.125rem;
+                        padding:       0.5rem;
+                        border-radius: $very-big-unit;
+                        font-size:     2rem;
+                        transition:    background-color 0.25s, color 0.25s;
+
+                        &:hover {
+                            color: $common-color-white;
+
+                            &.remove {
+                                background-color: $common-color-bad;
+                            }
+    
+                            &.edit {
+                                background-color: $common-color-normal;
+                            }
+
+                            &.reset_password {
+                                background-color: $common-color-bad-alternative;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #car_permission_container {
+        padding-top: 1rem;
+
+        #car_permission_inner_container {
+            display:         flex;
+            flex-wrap:       wrap;
+            flex-direction:  row;
+            justify-content: center;
+
+            .car_item {
+                @extend %manage_item;
+                position:       relative;
+                align-items:    flex-start;
+                flex-direction: column;
+                width:          200px;
+                height:         200px;
+                padding:        1rem;
+                line-height:    1.3;
+
+                .car_name {
+                    font-size:    1.5rem;
+                    font-weight: 400;
+                }
+
+                .car_desc {
+                    font-size:     1.1rem;
+                    margin-bottom: 1rem;
+                }
+
+                .car_unassigned {
+                    color: $common-color-bad;
+                }
+
+                .car_edit_info {
+                    position:      absolute;
+                    right:         0.75rem;
+                    bottom:        0.75rem;
+                    padding:       0.5rem;
+                    cursor:        pointer;
+                    font-size:     2rem;
+                    border-radius: $very-big-unit;
+                    transition:    background-color 0.5s, color 0.5s;
+
+                    &:hover {
+                        background-color: $common-color-normal;
+                        color:            white;
+                    }
+                }
+            }
+        }
+    }
+
+    #subaccount_edit_container {
+        #subaccount_edit_input_container {
+            display:        flex;
+            flex-direction: column;
+            margin:         auto;
+
+            > * {
+                margin-top:    0.33rem;
+                margin-bottom: 0.33rem;
+            }
+
+            label {
+                display:      inline-block;
+                width:        150px;
+                text-align:   right;
+                margin-right: 0.5rem;
+            }
+        }
+    }
+
+    #car_info_edit_container {
+        #car_info_edit_input_container {
+            display:        flex;
+            flex-direction: column;
+
+            > * {
+                margin-top:    0.33rem;
+                margin-bottom: 0.33rem;
+            }
+        }
+
+        input[type=button] {
+            width: 100%;
+        }
+    }
+}
+
+img#index_oem_logo {
+    position: fixed;
+    width:    50vw;
+    bottom:   1vw;
+    right:    1vw;
+    z-index:  -100;
+    opacity:  0.125;
+}
+
+@media (max-width: 1800px) {
+    section#section_manage {
+        #subaccount_manage_container {
+            #subaccount_create_container {
+                float:  unset;
+                margin: auto;
+            }
+        }
+    }
+}
+
+@media (max-width: 1300px) {
+    section#section_dashboard {
+        #dashboard_tools_container {
+            float: none;
+            width: 100%;
+        }
+    }
+
+    section#section_manage {
+        #subaccount_manage_container {
+            #subaccount_manage_inner_container {
+                .account_item {
+                    .id_container {
+                        @include width-fit-content;
+                    }
+
+                    .info_container {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: $mobile-width-threshold) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    header#header_main {
+        display:         flex;
+        flex-direction:  row;
+        justify-content: start;
+        justify-content: flex-start;
+        width:           100%;
+        top:             unset;
+        left:            0;
+        right:           0;
+        height:          $header-height-mobile;
+        z-index:         100;
+
+        #header_place_container {
+            width:  $header-height-mobile;
+            height: $header-height-mobile;
+
+            #header_place_contents {
+                #header_place_image_container {
+                    width:  calc(#{$header-height-mobile} / 1.5);
+                    height: calc(#{$header-height-mobile} / 1.5);
+                    border: none;
+                    margin: auto;
+    
+                    #header_place_image_logout_container {
+                        height: 100%;
+                        border-radius: $very-big-unit;
+                        background-color: transparent;
+                        transform: none;
+    
+                        & > div {
+                            display: none;
+                        }
+                    }
+                }
+
+                #header_logged_operator,
+                #header_place_name {
+                    display: none;
+                }                
+            }
+        }
+
+        #header_menus {
+            overflow-x:  auto;
+            margin:      unset;
+            margin-left: 0.5rem;
+            padding:     unset;
+            height:      100%;
+
+            & > li {
+                display:         inline-flex;
+                align-items:     center;
+                justify-content: center;
+                text-align:      center;
+                padding:         1rem;
+                height:          100%;
+                transition:      background-color 0.25s;
+
+                &:hover, &.active {
+                    padding-left: 1rem;
+                }
+
+                span {
+                    display: none;
+                }
+
+                & > i {
+                    margin: unset;
+                }
+            }
+        }
+
+        #header_hangisool_ecws {
+            display: none;
+        }
+    }
+
+    section {
+        left:    0;
+        bottom:  $header-height-mobile;
+        width:   100%;
+        padding: 0.75rem;
+    }
+
+    section#section_dashboard {
+        #dashboard_allstatus_container {
+            flex-direction: column;
+            text-align:     center;
+        }
+
+        .device_item {
+            @include    height-fit-content;
+
+            min-height: unset;
+        }
+
+        #dashboard_tools_container {
+            position:         fixed;
+            width:            100%;
+            left:             0;
+            right:            0;
+            top:              0;
+            padding-bottom:   1rem;
+            background-color: rgba($common-color-black, 0.75);
+            transform:        translate3d(0, -100%, 0.00001px);
+            z-index:          10;
+
+            &.active {
+                transform: translate3d(0, 0, 0.00001px);
+
+                #dashboard_mobile_tools_open_container {
+                    background-color: rgba($common-color-black, 0.75);
+                }
+            }
+
+            #dashboard_mobile_tools_open_container {
+                display: block;
+            }
+        }
+    }
+
+    section#section_manage {
+        #subaccount_manage_container {
+            #subaccount_create_container {
+                form {
+                    label {
+                        display:    block;
+                        width:      100%;
+                        margin:     unset;
+                        text-align: center;
+                    }
+
+                    input[type=text], input[type=password] {
+                        width: 100%;
+                    }
+                }
+            }
+
+            #subaccount_manage_inner_container {
+                .account_item {
+                    .index_container {
+                        display: none;
+                    }
+
+                    .id_container {
+                        .account_name {
+                            font-size: 1.66rem;
+                        }
+
+                        .account_id {
+                            font-size: 1.125rem;
+                        }
+                    }
+
+                    .account_control_container {
+                        right: 1rem;
+
+                        i {
+                            font-size: 1.75rem;
+                            margin:    0.1rem;
+                            padding:   0.33rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
