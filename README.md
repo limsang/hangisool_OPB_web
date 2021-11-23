@@ -1,2 +1,8 @@
 # hangisool_OPB_web
-OPB 서버
+OPB 백엔드, 프론트엔드 서버
+
+
+# backend
+
+
+# frontend
